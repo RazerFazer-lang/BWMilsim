@@ -12,8 +12,8 @@ const clients = new Set();
 
 const ranks = [
   'General', 'Generalleutnant', 'Generalmajor', 'Brigadegeneral',
-  'Oberst', 'Oberstleutnant', 'Major', 'Hauptmann', 'Oberleutnant', 'Leutnant',
-  'Stabsfeldwebel', 'Oberstabsfeldwebel', 'Hauptfeldwebel', 'Oberfeldwebel', 'Feldwebel',
+  'Oberst', 'Oberstleutnant', 'Major', 'Stabshauptmann', 'Hauptmann', 'Oberleutnant', 'Leutnant',
+  'Oberstabsfeldwebel', 'Stabsfeldwebel', 'Hauptfeldwebel', 'Oberfeldwebel', 'Feldwebel',
   'Stabsunteroffizier', 'Unteroffizier', 'Oberstabsgefreiter', 'Stabsgefreiter',
   'Hauptgefreiter', 'Obergefreiter', 'Gefreiter', 'Schütze / Matrose / Flieger'
 ];
@@ -66,7 +66,8 @@ function addAudit(action, actor, detail) {
   state.audit = state.audit.slice(0, 100);
 }
 function broadcast(event) {
-  const payload = `event: ${event.type}\ndata: ${JSON.stringify({ event, state })}\n\n`;
+  // Use a default SSE message so EventSource.onmessage receives every state update.
+  const payload = `data: ${JSON.stringify({ event, state })}\n\n`;
   for (const res of clients) res.write(payload);
 }
 function mutate(eventType, actor, detail, fn) {
@@ -80,7 +81,7 @@ function send(res, status, data, headers = {}) {
   res.end(JSON.stringify(data));
 }
 function serveStatic(res, pathname) {
-  let file = pathname === '/' ? '/index.html' : pathname;
+  const file = pathname === '/' ? '/index.html' : pathname;
   const full = path.normalize(path.join(ROOT, file));
   if (!full.startsWith(ROOT) || full.includes(`${path.sep}data${path.sep}`)) return send(res, 403, { error: 'Forbidden' });
   fs.readFile(full, (err, buf) => {
