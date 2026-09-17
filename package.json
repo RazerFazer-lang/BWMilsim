@@ -1,0 +1,12 @@
+{
+  "name": "bwmilsim",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Lokale, gemeinsam synchronisierte Arma 3 Milsim Operationsplattform",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
