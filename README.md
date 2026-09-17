@@ -7,9 +7,10 @@
 **Web-Demo / Oberfläche:**
 https://razerfazer-lang.github.io/BWMilsim/
 
-Die GitHub-Pages-Seite ist als leicht zugängliche Web-Oberfläche gedacht. GitHub Pages veröffentlicht die statischen Dateien direkt aus dem Repository; Updates können automatisch über GitHub Actions ausgerollt werden.
+**3D-Lagekarte direkt öffnen:**
+https://razerfazer-lang.github.io/BWMilsim/altis3d.html
 
-> Hinweis: GitHub Pages selbst unterstützt keine serverseitige Node.js-Ausführung. Deshalb läuft die vollständige gemeinsame Echtzeit-Session weiterhin über den lokalen BWMilsim-Host. citehttps://docs.github.com/de/pages/getting-started-with-github-pages/creating-a-github-pages-site
+Die GitHub-Pages-Seite ist als leicht zugängliche Web-Oberfläche gedacht. Die 3D-Lagekarte ist als eigenständige Browseransicht verfügbar; die vollständige gemeinsame Echtzeit-Session läuft weiterhin über den lokalen BWMilsim-Host.
 
 ## 🖥️ Lokaler Coop-Server
 
@@ -39,7 +40,12 @@ Der Server bindet standardmäßig an `0.0.0.0:3000` und gibt beim Start die verf
 
 - Führungs-Dashboard
 - Operationsverwaltung mit Missionsphasen
-- gemeinsame taktische Lagekarte
+- **3D-Lagekarte mit vollständiger Insel-Terrainansicht**
+- frei drehbare Kamera, Zoom und Pan
+- Höhenmodell und Gelände-Schattierung
+- Grid, North-Orientierung und Ortsreferenzen
+- gemeinsame Lageobjekte und synchronisierte Marker im lokalen Modus
+- Doppelklick-Markierung auf dem Terrain im lokalen Modus
 - Auftragsverwaltung
 - Lagemeldungen / Befehle / Funkmeldungen
 - Personalstamm
@@ -52,6 +58,10 @@ Der Server bindet standardmäßig an `0.0.0.0:3000` und gibt beim Start die verf
 - lokale Ausführung ohne Cloud-Abhängigkeit
 - GitHub Pages Web-Demo
 
+## 3D-Karte
+
+Die 3D-Karte wird mit Three.js gerendert. Die im Repository enthaltene Terrainbasis ist eine **schematische, lizenzsaubere Vollinsel-Darstellung** mit Altis-Ortsreferenzen und ist ausdrücklich nicht aus extrahierten Arma-3-Spieldateien erzeugt. Eine exakt passende, entsprechend lizenzierte Geländedatenbasis kann später als austauschbares Höhen-/Terrain-Paket eingebunden werden.
+
 ## Architektur
 
 ```text
@@ -60,7 +70,7 @@ Der Server bindet standardmäßig an `0.0.0.0:3000` und gibt beim Start die verf
           ┌─────────────┴─────────────┐
           │                           │
    GitHub Pages                 Lokaler Host
-   Web-Oberfläche               Node.js Server
+   Web-Oberfläche + 3D          Node.js Server
           │                           │
           │                    gemeinsamer Zustand
           │                           │
