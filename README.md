@@ -2,27 +2,16 @@
 
 **Lokale, gemeinsam synchronisierte Operationsplattform für Arma 3 Milsim.**
 
-BWMilsim ist als selbst gehostete Webanwendung gedacht: Ein Spieler startet den lokalen Node-Server, alle anderen verbinden sich über LAN oder ein privates VPN mit derselben Sitzung. Änderungen am gemeinsamen Zustand werden in Echtzeit an die verbundenen Browser verteilt.
+## 🌐 Direkt öffnen
 
-## Aktueller Stand
+**Web-Demo / Oberfläche:**
+https://razerfazer-lang.github.io/BWMilsim/
 
-Die erste funktionale Version enthält bereits:
+Die GitHub-Pages-Seite ist als leicht zugängliche Web-Oberfläche gedacht. GitHub Pages veröffentlicht die statischen Dateien direkt aus dem Repository; Updates können automatisch über GitHub Actions ausgerollt werden.
 
-- Führungs-Dashboard mit Bereitschaft, Auftragslage und Meldungsfeed
-- Operationsverwaltung mit Phasen: Planung, Briefing, Bereitstellung, Durchführung, Exfiltration, AAR und Abschluss
-- Gemeinsame taktische Lagekarte mit synchronisierten Markern
-- Auftragsverwaltung inklusive Priorität und Status
-- Gemeinsame Lagemeldungen / Befehle / Funkmeldungen
-- Personalstamm mit Callsigns, Dienstgraden, Funktionen, Einheiten und Bereitschaft
-- Hierarchische Organisationsansicht
-- Bundeswehr-nahe Dienstgradordnung als konfigurierbare Grundlage
-- Nachbesprechung / AAR mit Lessons Learned und Maßnahmenfeldern
-- Audit-/Änderungsverlauf
-- Persistenz in einer lokalen JSON-Datei
-- Echtzeit-Synchronisierung per Server-Sent Events
-- Lokaler Betrieb ohne Cloud-Dienst
+> Hinweis: GitHub Pages selbst unterstützt keine serverseitige Node.js-Ausführung. Deshalb läuft die vollständige gemeinsame Echtzeit-Session weiterhin über den lokalen BWMilsim-Host. citehttps://docs.github.com/de/pages/getting-started-with-github-pages/creating-a-github-pages-site
 
-## Start
+## 🖥️ Lokaler Coop-Server
 
 Voraussetzung: **Node.js 18 oder neuer**.
 
@@ -32,30 +21,56 @@ cd BWMilsim
 npm start
 ```
 
-Danach auf dem Host öffnen:
+Host öffnen:
 
 ```text
 http://localhost:3000
 ```
 
-Der Server bindet standardmäßig an `0.0.0.0:3000` und zeigt beim Start die LAN-Adressen an. Andere Spieler öffnen die entsprechende Adresse, zum Beispiel:
+Andere Spieler öffnen die LAN-/VPN-Adresse des Hosts, z. B.:
 
 ```text
 http://192.168.178.50:3000
 ```
 
-Für einen Zugriff über ein privates VPN kann die VPN-IP des Hosts verwendet werden.
+Der Server bindet standardmäßig an `0.0.0.0:3000` und gibt beim Start die verfügbaren LAN-Adressen aus.
+
+## Aktueller Stand
+
+- Führungs-Dashboard
+- Operationsverwaltung mit Missionsphasen
+- gemeinsame taktische Lagekarte
+- Auftragsverwaltung
+- Lagemeldungen / Befehle / Funkmeldungen
+- Personalstamm
+- Einheiten-/Organisationsansicht
+- konfigurierbare Dienstgrade
+- Nachbesprechung / AAR
+- Audit-/Änderungsverlauf
+- lokale Persistenz
+- Echtzeit-Synchronisierung des gemeinsamen Serverzustands per SSE
+- lokale Ausführung ohne Cloud-Abhängigkeit
+- GitHub Pages Web-Demo
 
 ## Architektur
 
 ```text
-Browser 1 ─┐
-Browser 2 ─┼── HTTP API / SSE ──> Node.js Host ──> data/state.json
-Browser 3 ─┘
+                 GitHub Repository
+                        │
+          ┌─────────────┴─────────────┐
+          │                           │
+   GitHub Pages                 Lokaler Host
+   Web-Oberfläche               Node.js Server
+          │                           │
+          │                    gemeinsamer Zustand
+          │                           │
+          │             ┌─────────────┼─────────────┐
+          │             │             │             │
+          │          Browser 1     Browser 2     Browser ...
+          │
+       Demo / UI
 ```
-
-Der Server hält den **gemeinsamen autoritativen Sitzungszustand**. Schreiboperationen werden serverseitig verarbeitet, gespeichert und als Event an alle verbundenen Clients ausgespielt.
 
 ## Nächste Ausbauphasen
 
-Die aktuelle Version ist bewusst als stabile Basis angelegt. Darauf können die vollständigen Milsim-Funktionen folgen: Rollen- und Rechteverwaltung, echte Einheiten-/Dienstpostenmodelle, umfangreichere Kartenfunktionen, Missions-/Briefing-Builder, Material- und Logistiksystem, Sanitäts-/Casualty-Tracking, Trainings- und Qualifikationsverwaltung, Szenario-Templates, Import/Export, Session-Verwaltung und später eine optionale Arma-3-Bridge.
+Die Basis ist jetzt vorhanden. Darauf folgen insbesondere Rollen/Rechte, echte Dienstposten, vollständige Einheitenhierarchie, Missions-/Briefing-Builder, Logistik, Sanitäts-/Casualty-Tracking, Trainings und Qualifikationen, Szenario-Templates, Import/Export, Sessionverwaltung und später eine optionale Arma-3-Bridge.
