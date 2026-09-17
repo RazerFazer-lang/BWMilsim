@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0f0d">
+  <title>BWMilsim — Operationsplattform</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">BW</div>
+        <div><strong>BWMilsim</strong><span>ARMA 3 OPERATIONS PLATFORM</span></div>
+      </div>
+      <div class="top-status"><span class="live-dot"></span><span id="connectionText">VERBINDE…</span><span class="separator"></span><span id="clock">--:--:--</span></div>
+      <button class="profile" id="profileBtn"><span id="meInitial">M</span><span id="meName">Gast</span><span>⌄</span></button>
+    </header>
+
+    <aside class="sidebar">
+      <div class="section-label">OPERATIONSZENTRALE</div>
+      <button class="nav active" data-view="dashboard"><span>◫</span> Dashboard</button>
+      <button class="nav" data-view="operation"><span>◎</span> Operation</button>
+      <button class="nav" data-view="map"><span>⌖</span> Lagekarte</button>
+      <button class="nav" data-view="tasks"><span>✓</span> Aufträge</button>
+      <button class="nav" data-view="reports"><span>◒</span> Meldungen</button>
+      <div class="section-label">PERSONAL & STRUKTUR</div>
+      <button class="nav" data-view="personnel"><span>♙</span> Personal</button>
+      <button class="nav" data-view="organization"><span>⌘</span> Organisation</button>
+      <button class="nav" data-view="ranks"><span>★</span> Dienstgrade</button>
+      <div class="section-label">AUSWERTUNG</div>
+      <button class="nav" data-view="aar"><span>▤</span> Nachbesprechung / AAR</button>
+      <button class="nav" data-view="history"><span>↺</span> Verlauf</button>
+      <button class="nav" data-view="settings"><span>⚙</span> Einstellungen</button>
+      <div class="sidebar-footer"><div class="sync-pill"><span class="live-dot"></span><div><b>Echtzeit-Sync</b><small>Alle Clients verbunden</small></div></div></div>
+    </aside>
+
+    <main class="main">
+      <div id="toast" class="toast"></div>
+      <section id="view-dashboard" class="view active-view"></section>
+      <section id="view-operation" class="view"></section>
+      <section id="view-map" class="view"></section>
+      <section id="view-tasks" class="view"></section>
+      <section id="view-reports" class="view"></section>
+      <section id="view-personnel" class="view"></section>
+      <section id="view-organization" class="view"></section>
+      <section id="view-ranks" class="view"></section>
+      <section id="view-aar" class="view"></section>
+      <section id="view-history" class="view"></section>
+      <section id="view-settings" class="view"></section>
+    </main>
+  </div>
+
+  <div id="modal" class="modal-backdrop hidden"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
