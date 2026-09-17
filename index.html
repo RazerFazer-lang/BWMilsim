@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b0f0d">
   <title>BWMilsim — Operationsplattform</title>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <div class="app-shell">
@@ -53,8 +53,12 @@
   </div>
 
   <div id="modal" class="modal-backdrop hidden"></div>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
-  <script src="/app.js"></script>
-  <script src="/three-map.js"></script>
+  <script src="./app.js"></script>
+  <script type="module">
+    import * as THREE_NS from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
+    window.THREE = THREE_NS;
+    await import('./three-map.js');
+    window.dispatchEvent(new Event('three-ready'));
+  </script>
 </body>
 </html>
